@@ -18,10 +18,6 @@ public class Jugador {
         this.nombre = n;
         this.mano = mano;
     }
-
-    public String getNombre() {
-        return nombre;
-    }
     
     public Ficha getFicha(int i){
         if (i>0 && i<=mano.size())
@@ -30,5 +26,24 @@ public class Jugador {
             return null;
     }
     
+    public void removerFicha(Ficha f){
+        for(int i=0;i<mano.size();i++){
+            if(f.equals(mano.get(i)))
+                mano.remove(i);
+        }
+    }
+    public String getNombre() {
+        return nombre;
+    }
     
+    public void imprimirMano(){
+        for(Ficha f:mano){
+            int i=1;
+            System.out.print(f.toString());
+            if (i!=mano.size()){
+                i++;
+                System.out.print("-");
+            }
+        }
+    }
 }
