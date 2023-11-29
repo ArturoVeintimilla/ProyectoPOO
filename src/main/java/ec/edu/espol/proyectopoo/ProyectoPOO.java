@@ -13,5 +13,6 @@ public class ProyectoPOO {
     public static void main(String[] args) {
         System.out.println("Hello World 2");
         System.out.println("Levin was here");
+        System.out.println("Juan F");
     }
 }
