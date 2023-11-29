@@ -14,5 +14,6 @@ public class ProyectoPOO {
         System.out.println("Hello World 2");
         System.out.println("Levin was here");
         System.out.println("Juan F");
+        System.out.println("Prueba por Juan, Levin, Sebas");
     }
 }
