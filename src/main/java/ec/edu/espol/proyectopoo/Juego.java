@@ -124,9 +124,43 @@ public class Juego {
         }
         
         return true;
-    } 
+    }
 
+    public ArrayList<Jugador> getJugadores() {
+        return jugadores;
+    }
+    
+    
 
+    public boolean turnoMaquina()
+    {
+        
+        for(Ficha f:this.jugadores.get(0).getMano())
+        {
+            if(!(f instanceof FichaComodin))
+            {
+                if(this.agregarFichaLinea(f,this.jugadores.get(0)))
+                    return(true);
+            }
+            
+        }
+        
+        for(Ficha f:this.jugadores.get(0).getMano())
+        {
+            if(f instanceof FichaComodin)
+            {
+                if(this.agregarFichaLinea(f,this.jugadores.get(0)))
+                    return(true);
+            }
+        }
+        
+        return(false);
+    }
+    
+    public boolean turnoJugador(int turno)
+    {
+        Jugador j1 = jugadores.get(turno);
+    }
                         
         
 

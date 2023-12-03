@@ -50,6 +50,12 @@ public class Jugador {
          return mano.size();
      
     }
+
+    public ArrayList<Ficha> getMano() {
+        return mano;
+    }
+     
+     
 }
 
 
