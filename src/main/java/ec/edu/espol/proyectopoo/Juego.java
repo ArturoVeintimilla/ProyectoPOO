@@ -28,6 +28,8 @@ public class Juego {
         jugadores.add(j1);
     }
     
+    
+    
     public int obtenerValorInicioLinea()
     {
         return lineaJuego.get(0).getLado1();
@@ -122,5 +124,10 @@ public class Juego {
         }
         
         return true;
-    }  
+    } 
+
+
+                        
+        
+
 }

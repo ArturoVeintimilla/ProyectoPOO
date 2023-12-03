@@ -46,6 +46,10 @@ public class Jugador {
             }
         }
     }
+     public int tamanioMano(){
+         return mano.size();
+     
+    }
 }
 
 
