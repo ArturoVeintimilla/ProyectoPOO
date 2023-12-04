@@ -6,6 +6,7 @@ package ec.edu.espol.proyectopoo;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -141,38 +142,53 @@ public class Juego {
     
     
 
-    public String turnoMaquina()
+    public boolean turnoMaquina()
     {
-        this.jugadores.get(0).imprimirMano();
-        for(Ficha f:this.jugadores.get(0).getMano())
+        System.out.println("Mano de la maquina: ");
+        
+        Jugador maquina = this.jugadores.get(0);
+        
+        maquina.imprimirMano();
+        
+        for(Ficha f:maquina.getMano())
         {
-            
-            if(this.agregarFichaLinea(f,this.jugadores.get(0))==true)
-                return "Agregado";
+
+            if(!(f instanceof FichaComodin))
+            {
+                if(this.agregarFichaLinea(f, maquina) == true)
+                    return true;
+            }
+
+            else if(f instanceof FichaComodin)
+            {
+                Random r = new Random();
+                int dado = r.nextInt(1);
+                int nrand = (int) ((Math.random() * 6) + 1);
+                
+                if(dado == 0)
+                {
+                    lineaJuego.add(0,f);
+                    ((FichaComodin) f).setLado1(nrand);
+                    maquina.removerFicha(f);
+                    
+                }
+                else
+                {
+                    lineaJuego.add(lineaJuego.size(),f);
+                    ((FichaComodin) f).setLado2(nrand);
+                    maquina.removerFicha(f);
+                }
+                
+                return true;
+                
+            }  
         }
-        return "Ganaste";
+        
+        return false;
+        
     }
    
-    public String turnoJugadorVSMaquina()
-    {
-        Scanner sc = new Scanner(System.in);
-        sc.useLocale(Locale.US);
-        sc.useDelimiter("\n");
-        Jugador j= this.jugadores.get(1);
-        j.imprimirMano();
-        for(int i=0;i<j.tamanioMano();i++){
-            if((j.getFicha(i)instanceof FichaComodin)||j.getFicha(i).getLado1()==this.obtenerValorFinLinea()||j.getFicha(i).getLado2()==this.obtenerValorInicioLinea()){
-                System.out.print("Ingrese la posición de la ficha que desea usar:");
-                int pos=sc.nextInt();
-                while(!(pos>0 ||pos<j.tamanioMano())||(this.agregarFichaLinea(j.getFicha(pos-1), j)==false)){
-                    System.out.println("Ingrese otra posición:");
-                    pos=sc.nextInt(); 
-                }
-                return "Agregado";    
-            }
-        }
-        return "Perdiste";
-    }                     
+                         
     public boolean turnoJugador(int p)
     {
         Scanner sc = new Scanner(System.in);

@@ -42,35 +42,92 @@ public class ProyectoPOO {
                 
                 if(turno == 0)
                 {
-                    System.out.println(game.turnoMaquina());
-                    if(game.turnoMaquina().equals("Agregado"))
+                    
+                    if(game.turnoMaquina() == true)
                     {
+                        System.out.println("Linea actual: ");
                         game.mostrarLinea();
-                        System.out.println(game.turnoJugadorVSMaquina());
-                        if(game.turnoJugadorVSMaquina().equals("Perdiste"))
-                            condicionVictoria=false;
+                        
+                        if(game.validarOpciones(game.getJugadores().get(1)) == false)
+                        {
+                            condicionVictoria = false;
+                            System.out.println("Perdiste");
+                        }
+                        
+                        
+                        else if(game.turnoJugador(1) == false)
+                        {
+                            boolean condicion1 = game.validarOpciones(game.getJugadores().get(1));
+                            while(condicion1 == true)
+                            {
+                                System.out.println("La ficha no es válida, pruebe otra vez");
+                                game.mostrarLinea();
+                                condicion1 = !game.turnoJugador(1);
+                                game.mostrarLinea();
+                            }
+                        }
                     }
+                    
                     else
                     {
+                        System.out.println("Ganaste");
                         condicionVictoria = false;
-                    }    
+                    }
+                    
+                    //Turno jugador
+                    
                 }
                 else
                 {
-                    System.out.println(game.turnoJugadorVSMaquina());
-                    if(game.turnoJugadorVSMaquina().equals("Agregado"))
+                    if(game.turnoJugador(1) == true)
                     {
-                        System.out.println(game.turnoMaquina());
-                        if(game.turnoMaquina().equals("Ganaste"))
-                            condicionVictoria=false;
+                        game.mostrarLinea();
+                        
+                        if(game.validarOpciones(game.getJugadores().get(1)) == false)
+                        {
+                            condicionVictoria = false;
+                            System.out.println("Perdiste");
+                        }
+                        else
+                        {
+                            boolean condicion1 = game.validarOpciones(game.getJugadores().get(1));
+                            while(condicion1 == true)
+                            {
+                                System.out.println("La ficha no es válida, pruebe otra vez");
+                                game.mostrarLinea();
+                                condicion1 = !game.turnoJugador(1);
+                                game.mostrarLinea();
+                            }
+                            
+                            if(game.turnoMaquina() == false)
+                            {
+                                condicionVictoria = false;
+                                System.out.println("Ganaste");
+                            }
+                            
+                            else
+                            {
+                                game.mostrarLinea();
+                            }
+                        }
                     }
+                    
                     else
                     {
+                        System.out.println("Ganaste");
                         condicionVictoria = false;
-                    }    
+                    } 
                 }
             }
+            //While se hace false
+            
+            if(game.getJugadores().get(0).tamanioMano() == 0)
+                System.out.println("El ganador es: " + game.getJugadores().get(0).getNombre());
+            else if(game.getJugadores().get(1).tamanioMano() == 0)
+                System.out.println("El ganador es: " + game.getJugadores().get(1).getNombre());
+            
         }
+        
         else{
             for (int i=0;i<=1;i++){
                 System.out.print("Ingrese nombre del jugador #"+i+":");
@@ -112,6 +169,11 @@ public class ProyectoPOO {
                     }
                 }
             }
+            
+            if(game.getJugadores().get(0).tamanioMano() == 0)
+                System.out.println("El ganador es: " + game.getJugadores().get(0).getNombre());
+            else if(game.getJugadores().get(1).tamanioMano() == 0)
+                System.out.println("El ganador es: " + game.getJugadores().get(1).getNombre());
                 
         }
     }
