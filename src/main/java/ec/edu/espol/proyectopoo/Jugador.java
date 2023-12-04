@@ -42,7 +42,7 @@ public class Jugador {
             System.out.print(f.toString());
             if (i!=mano.size()){
                 i++;
-                System.out.print("-");
+                System.out.print(" - ");
             }
         }
     }
