@@ -187,7 +187,7 @@ public class Juego {
         System.out.println("Seleccione el indice de la ficha que desea jugar");
         int eleccion = sc.nextInt();
         
-        while(eleccion < 0 || eleccion > j.tamanioMano())
+        while(eleccion < 0 || eleccion > j.tamanioMano() || (this.agregarFichaLinea(j.getFicha(eleccion), j)==false))
         {
             System.out.println("El indice no es valido, ingrese otro indice: ");
             eleccion = sc.nextInt();
