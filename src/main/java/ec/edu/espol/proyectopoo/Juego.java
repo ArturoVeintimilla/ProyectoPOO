@@ -187,13 +187,29 @@ public class Juego {
         System.out.println("Seleccione el indice de la ficha que desea jugar");
         int eleccion = sc.nextInt();
         
-        while(eleccion < 0 || eleccion > j.tamanioMano() || (this.agregarFichaLinea(j.getFicha(eleccion), j)==false))
+        while(eleccion < 0 || eleccion > j.tamanioMano())
         {
             System.out.println("El indice no es valido, ingrese otro indice: ");
             eleccion = sc.nextInt();
         }
         
         return this.agregarFichaLinea(j.getFicha(eleccion), j);
-      
+        
     }
+    
+    public boolean validarOpciones(Jugador j)
+        {
+            for(Ficha f:j.getMano())
+            {
+                    if(f.getLado2() == obtenerValorInicioLinea())
+                        return true;
+
+                    else if(f.getLado1() == obtenerValorFinLinea())
+                        return true;
+
+                    else if(f instanceof FichaComodin)
+                        return true;
+            }
+            return false;
+        }
 }

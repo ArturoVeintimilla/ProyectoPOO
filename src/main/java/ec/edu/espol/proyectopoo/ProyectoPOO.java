@@ -81,6 +81,7 @@ public class ProyectoPOO {
             
             while(condicionVictoria == true)
             {
+                System.out.println("Turno de: " + game.getJugadores().get(turno).getNombre());
                 if(game.turnoJugador(turno) == true)
                 {
                     System.out.println("Añadido correctamente");
@@ -92,8 +93,23 @@ public class ProyectoPOO {
                 
                 else
                 {
-                    condicionVictoria = false;
-                    System.out.println("Perdió " + game.getJugadores().get(turno).getNombre());
+                    if(game.validarOpciones(game.getJugadores().get(turno)) == false)
+                    {
+                        condicionVictoria = false;
+                        System.out.println("Perdió " + game.getJugadores().get(turno).getNombre());
+                    }
+                    else
+                    {
+                        boolean condicion1 = game.validarOpciones(game.getJugadores().get(turno));
+                        while(condicion1 == true)
+                        {
+                            System.out.println("La ficha no es válida, pruebe otra vez");
+                            game.mostrarLinea();
+                            condicion1 = !game.turnoJugador(turno);
+                            game.mostrarLinea();
+                        }
+                        
+                    }
                 }
             }
                 
