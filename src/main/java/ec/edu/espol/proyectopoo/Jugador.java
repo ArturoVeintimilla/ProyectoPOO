@@ -40,10 +40,12 @@ public class Jugador {
         for(Ficha f:mano){
             int i=1;
             System.out.print(f.toString());
-            if (i!=mano.size()){
+            if (i<mano.size()){
                 i++;
                 System.out.print("-");
             }
+            else
+                System.out.println("\n");
         }
     }
      public int tamanioMano(){

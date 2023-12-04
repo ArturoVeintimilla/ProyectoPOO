@@ -42,9 +42,10 @@ public class ProyectoPOO {
                 
                 if(turno == 0)
                 {
-                    System.out.println(game.turnoMaquina());
+                    game.turnoMaquina();
                     if(game.turnoMaquina().equals("Agregado"))
                     {
+                        System.out.println("\n");
                         game.mostrarLinea();
                         System.out.println(game.turnoJugadorVSMaquina());
                         if(game.turnoJugadorVSMaquina().equals("Perdiste"))

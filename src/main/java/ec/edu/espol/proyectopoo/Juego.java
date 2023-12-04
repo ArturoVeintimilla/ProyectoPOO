@@ -42,12 +42,8 @@ public class Juego {
     
     public void mostrarLinea()
     {
-        StringBuilder s1 = new StringBuilder();
-        for(int i = 0;i < lineaJuego.size();i++)
-        {
-            s1.append(lineaJuego.get(i).toString());
-            if(i < lineaJuego.size() - 1)
-                s1.append(" - ");
+        for(int i=0;i<lineaJuego.size();i++){
+            System.out.println(lineaJuego.get(i).toString());
         }
     }
     
@@ -134,12 +130,12 @@ public class Juego {
 
     public String turnoMaquina()
     {
-        this.jugadores.get(0).imprimirMano();
+       this.getJugadores().get(0).imprimirMano();
         for(Ficha f:this.jugadores.get(0).getMano())
         {
-            
-            if(this.agregarFichaLinea(f,this.jugadores.get(0))==true)
-                return "Agregado";
+            boolean verdad=this.agregarFichaLinea(f, this.jugadores.get(0));
+            if(verdad==true)
+                return "\"Agregado";
         }
         return "Ganaste";
     }
@@ -152,7 +148,7 @@ public class Juego {
         Jugador j= this.jugadores.get(1);
         j.imprimirMano();
         for(int i=0;i<j.tamanioMano();i++){
-            if((j.getFicha(i)instanceof FichaComodin)||j.getFicha(i).getLado1()==this.obtenerValorFinLinea()||j.getFicha(i).getLado2()==this.obtenerValorInicioLinea()){
+            do{
                 System.out.print("Ingrese la posición de la ficha que desea usar:");
                 int pos=sc.nextInt();
                 while(!(pos>0 ||pos<j.tamanioMano())||(this.agregarFichaLinea(j.getFicha(pos-1), j)==false)){
@@ -160,7 +156,7 @@ public class Juego {
                     pos=sc.nextInt(); 
                 }
                 return "Agregado";    
-            }
+            }while((j.getFicha(i)instanceof FichaComodin)||j.getFicha(i).getLado1()==this.obtenerValorFinLinea()||j.getFicha(i).getLado2()==this.obtenerValorInicioLinea());
         }
         return "Perdiste";
     }                     
@@ -172,7 +168,8 @@ public class Juego {
         Jugador j= this.jugadores.get(p);
         j.imprimirMano();
         for(int i=0;i<j.tamanioMano();i++){
-            if((j.getFicha(i)instanceof FichaComodin)||j.getFicha(i).getLado1()==this.obtenerValorFinLinea()||j.getFicha(i).getLado2()==this.obtenerValorInicioLinea()){
+            do{
+                
                 System.out.println("Ingrese la posición de la ficha que desea usar:");
                 int pos=sc.nextInt();
                 while(!(pos>0 ||pos<j.tamanioMano())||(this.agregarFichaLinea(j.getFicha(pos-1), j)==false)){
@@ -180,7 +177,7 @@ public class Juego {
                     pos=sc.nextInt(); 
                 }
                 return "Agregado";    
-            }
+            }while((j.getFicha(i)instanceof FichaComodin)||j.getFicha(i).getLado1()==this.obtenerValorFinLinea()||j.getFicha(i).getLado2()==this.obtenerValorInicioLinea());
         }
         return "Perdiste";
     }
