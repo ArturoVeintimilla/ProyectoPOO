@@ -16,6 +16,8 @@ import java.util.Scanner;
  * JavaFX App
  */
 public class App extends Application {
+    
+    //prueba
 
     private static Scene scene;
 
