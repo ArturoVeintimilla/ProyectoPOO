@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.domino.MesajuegoController">
+   <center>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <content>
+            <HBox fx:id="mesafichas" prefHeight="100.0" prefWidth="200.0" />
+         </content>
+      </ScrollPane>
+   </center>
+   <top>
+      <HBox fx:id="manomaquina" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="ficha_individual_m" prefHeight="200.0" prefWidth="100.0" />
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox fx:id="manojugador" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="ficha_individual" onMouseClicked="#ficha_elegida" prefHeight="200.0" prefWidth="100.0" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
