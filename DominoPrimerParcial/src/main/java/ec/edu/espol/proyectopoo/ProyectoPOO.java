@@ -176,3 +176,6 @@ public class ProyectoPOO {
                 System.out.println("El ganador es: " + game.getJugadores().get(1).getNombre());
                 
         }
+
+    }
+}
