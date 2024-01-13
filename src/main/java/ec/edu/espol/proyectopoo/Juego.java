@@ -45,6 +45,7 @@ public class Juego {
         for(int i=0;i<lineaJuego.size();i++){
             System.out.println(lineaJuego.get(i).toString());
         }
+        System.out.println(s1);
     }
     
     public boolean agregarFichaLinea(Ficha ficha,Jugador j)
@@ -52,7 +53,10 @@ public class Juego {
         if(!(ficha instanceof FichaComodin))
         {
             if(lineaJuego.size() == 0)
+            {
                 lineaJuego.add(ficha);
+                j.removerFicha(ficha);
+            }
             else 
                 if(ficha.getLado2() == obtenerValorInicioLinea())
                 {
@@ -61,7 +65,7 @@ public class Juego {
                 }
                 else if(ficha.getLado1() == obtenerValorFinLinea())
                 {
-                    lineaJuego.add(lineaJuego.size() - 1, ficha);
+                    lineaJuego.add(lineaJuego.size(), ficha);
                     j.removerFicha(ficha);
                 }
                 else
@@ -90,6 +94,8 @@ public class Juego {
                 System.out.println("Ingrese un valor para el lado 2");
                 fc.setLado2(sc.nextInt());
                 }while(fc.getLado2() < 1 && fc.getLado2() > 6);
+                
+                j.removerFicha(ficha);
             }
             
             else 
@@ -105,16 +111,19 @@ public class Juego {
                     fc.setLado1(sc.nextInt());
                     }while(fc.getLado1() < 1 && fc.getLado1() > 6);
                     
+                    j.removerFicha(ficha);
                 }
                 
                 else if(posicion.equals("Fin"))
                 {
-                    lineaJuego.add(lineaJuego.size() - 1, ficha);
+                    lineaJuego.add(lineaJuego.size(), ficha);
                     do
                     {
                     System.out.println("Ingrese un valor para el lado 2");
                     fc.setLado2(sc.nextInt());
                     }while(fc.getLado2() < 1 && fc.getLado2() > 6);
+                    
+                    j.removerFicha(ficha);
                 }
             }
         }
@@ -160,12 +169,15 @@ public class Juego {
         }
         return "Perdiste";
     }                     
-    public String turnoJugador(int p)
+    public boolean turnoJugador(int p)
     {
         Scanner sc = new Scanner(System.in);
         sc.useLocale(Locale.US);
         sc.useDelimiter("\n");
-        Jugador j= this.jugadores.get(p);
+        
+        Jugador j = this.jugadores.get(p);
+        
+        System.out.println("Fichas actuales que puede jugar: ");
         j.imprimirMano();
         for(int i=0;i<j.tamanioMano();i++){
             do{
@@ -178,7 +190,17 @@ public class Juego {
                 }
                 return "Agregado";    
             }while((j.getFicha(i)instanceof FichaComodin)||j.getFicha(i).getLado1()==this.obtenerValorFinLinea()||j.getFicha(i).getLado2()==this.obtenerValorInicioLinea());
+        
+        System.out.println("Seleccione el indice de la ficha que desea jugar");
+        int eleccion = sc.nextInt();
+        
+        while(eleccion < 0 || eleccion > j.tamanioMano())
+        {
+            System.out.println("El indice no es valido, ingrese otro indice: ");
+            eleccion = sc.nextInt();
         }
-        return "Perdiste";
+        
+        return this.agregarFichaLinea(j.getFicha(eleccion), j);
+      
     }
 }

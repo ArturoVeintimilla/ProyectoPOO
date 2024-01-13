@@ -79,17 +79,25 @@ public class ProyectoPOO {
             }
 
             boolean condicionVictoria = game.getJugadores().get(turno).tamanioMano() > 0;
-            while(condicionVictoria==true){
-                if(game.turnoJugador(turno).equals("Perdiste")){
-                    condicionVictoria=false;
-                    System.out.println(game.turnoJugador(turno)+game.getJugadores().get(turno));
+            
+            while(condicionVictoria == true)
+            {
+                if(game.turnoJugador(turno) == true)
+                {
+                    System.out.println("Añadido correctamente");
+                    game.mostrarLinea();
+                    turno++;
+                    if(turno>1)
+                        turno=0;
                 }
+                
                 else
-                    System.out.println(game.turnoJugador(turno));
-                turno++;
-                if(turno>1)
-                    turno=0;
+                {
+                    condicionVictoria = false;
+                    System.out.println("Perdió " + game.getJugadores().get(turno).getNombre());
+                }
             }
+                
         }
     }
 }
