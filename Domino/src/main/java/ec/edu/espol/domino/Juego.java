@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ec.edu.espol.proyectopoo;
+package ec.edu.espol.domino;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
  *
- * @author levin
+ * @author TOSHIBA
  */
 public class Juego {
     private ArrayList<Ficha> lineaJuego;
@@ -42,8 +43,12 @@ public class Juego {
     
     public void mostrarLinea()
     {
-        for(int i=0;i<lineaJuego.size();i++){
-            System.out.println(lineaJuego.get(i).toString());
+        StringBuilder s1 = new StringBuilder();
+        for(int i = 0;i < lineaJuego.size();i++)
+        {
+            s1.append(lineaJuego.get(i).toString());
+            if(i < lineaJuego.size() - 1)
+                s1.append(" - ");
         }
         System.out.println(s1);
     }
@@ -137,38 +142,53 @@ public class Juego {
     
     
 
-    public String turnoMaquina()
+    public boolean turnoMaquina()
     {
-       this.getJugadores().get(0).imprimirMano();
-        for(Ficha f:this.jugadores.get(0).getMano())
+        System.out.println("Mano de la maquina: ");
+        
+        Jugador maquina = this.jugadores.get(0);
+        
+        maquina.imprimirMano();
+        
+        for(Ficha f:maquina.getMano())
         {
-            boolean verdad=this.agregarFichaLinea(f, this.jugadores.get(0));
-            if(verdad==true)
-                return "\"Agregado";
+
+            if(!(f instanceof FichaComodin))
+            {
+                if(this.agregarFichaLinea(f, maquina) == true)
+                    return true;
+            }
+
+            else if(f instanceof FichaComodin)
+            {
+                Random r = new Random();
+                int dado = r.nextInt(1);
+                int nrand = (int) ((Math.random() * 6) + 1);
+                
+                if(dado == 0)
+                {
+                    lineaJuego.add(0,f);
+                    ((FichaComodin) f).setLado1(nrand);
+                    maquina.removerFicha(f);
+                    
+                }
+                else
+                {
+                    lineaJuego.add(lineaJuego.size(),f);
+                    ((FichaComodin) f).setLado2(nrand);
+                    maquina.removerFicha(f);
+                }
+                
+                return true;
+                
+            }  
         }
-        return "Ganaste";
+        
+        return false;
+        
     }
    
-    public String turnoJugadorVSMaquina()
-    {
-        Scanner sc = new Scanner(System.in);
-        sc.useLocale(Locale.US);
-        sc.useDelimiter("\n");
-        Jugador j= this.jugadores.get(1);
-        j.imprimirMano();
-        for(int i=0;i<j.tamanioMano();i++){
-            do{
-                System.out.print("Ingrese la posición de la ficha que desea usar:");
-                int pos=sc.nextInt();
-                while(!(pos>0 ||pos<j.tamanioMano())||(this.agregarFichaLinea(j.getFicha(pos-1), j)==false)){
-                    System.out.println("Ingrese otra posición:");
-                    pos=sc.nextInt(); 
-                }
-                return "Agregado";    
-            }while((j.getFicha(i)instanceof FichaComodin)||j.getFicha(i).getLado1()==this.obtenerValorFinLinea()||j.getFicha(i).getLado2()==this.obtenerValorInicioLinea());
-        }
-        return "Perdiste";
-    }                     
+                         
     public boolean turnoJugador(int p)
     {
         Scanner sc = new Scanner(System.in);
@@ -179,17 +199,6 @@ public class Juego {
         
         System.out.println("Fichas actuales que puede jugar: ");
         j.imprimirMano();
-        for(int i=0;i<j.tamanioMano();i++){
-            do{
-                
-                System.out.println("Ingrese la posición de la ficha que desea usar:");
-                int pos=sc.nextInt();
-                while(!(pos>0 ||pos<j.tamanioMano())||(this.agregarFichaLinea(j.getFicha(pos-1), j)==false)){
-                    System.out.println("Ingrese otra posición:");
-                    pos=sc.nextInt(); 
-                }
-                return "Agregado";    
-            }while((j.getFicha(i)instanceof FichaComodin)||j.getFicha(i).getLado1()==this.obtenerValorFinLinea()||j.getFicha(i).getLado2()==this.obtenerValorInicioLinea());
         
         System.out.println("Seleccione el indice de la ficha que desea jugar");
         int eleccion = sc.nextInt();
@@ -201,6 +210,22 @@ public class Juego {
         }
         
         return this.agregarFichaLinea(j.getFicha(eleccion), j);
-      
+        
     }
+    
+    public boolean validarOpciones(Jugador j)
+        {
+            for(Ficha f:j.getMano())
+            {
+                    if(f.getLado2() == obtenerValorInicioLinea())
+                        return true;
+
+                    else if(f.getLado1() == obtenerValorFinLinea())
+                        return true;
+
+                    else if(f instanceof FichaComodin)
+                        return true;
+            }
+            return false;
+        }
 }

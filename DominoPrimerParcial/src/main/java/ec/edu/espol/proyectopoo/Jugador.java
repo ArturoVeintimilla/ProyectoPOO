@@ -37,6 +37,7 @@ public class Jugador {
     }
     
     public void imprimirMano(){
+<<<<<<< HEAD:src/main/java/ec/edu/espol/proyectopoo/Jugador.java
         for(Ficha f:mano){
             int i=1;
             System.out.print(f.toString());
@@ -46,8 +47,17 @@ public class Jugador {
             }
             else
                 System.out.println("\n");
+=======
+       StringBuilder s1 = new StringBuilder();
+        for(int i = 0;i < mano.size();i++){
+            s1.append(mano.get(i).toString());
+            if(i < mano.size() - 1)
+                s1.append(" - ");
+>>>>>>> 1453d665bccc3c19a4fe20241d7527d550a24aea:DominoPrimerParcial/src/main/java/ec/edu/espol/proyectopoo/Jugador.java
         }
+        System.out.println(s1);
     }
+   
      public int tamanioMano(){
          return mano.size();
      
