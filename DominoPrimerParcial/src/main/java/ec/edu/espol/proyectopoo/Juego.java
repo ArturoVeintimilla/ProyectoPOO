@@ -43,8 +43,12 @@ public class Juego {
     
     public void mostrarLinea()
     {
-        for(int i=0;i<lineaJuego.size();i++){
-            System.out.println(lineaJuego.get(i).toString());
+        StringBuilder s1 = new StringBuilder();
+        for(int i = 0;i < lineaJuego.size();i++)
+        {
+            s1.append(lineaJuego.get(i).toString());
+            if(i < lineaJuego.size() - 1)
+                s1.append(" - ");
         }
         System.out.println(s1);
     }
@@ -140,14 +144,6 @@ public class Juego {
 
     public boolean turnoMaquina()
     {
-<<<<<<< HEAD:src/main/java/ec/edu/espol/proyectopoo/Juego.java
-       this.getJugadores().get(0).imprimirMano();
-        for(Ficha f:this.jugadores.get(0).getMano())
-        {
-            boolean verdad=this.agregarFichaLinea(f, this.jugadores.get(0));
-            if(verdad==true)
-                return "\"Agregado";
-=======
         System.out.println("Mano de la maquina: ");
         
         Jugador maquina = this.jugadores.get(0);
@@ -186,7 +182,6 @@ public class Juego {
                 return true;
                 
             }  
->>>>>>> 1453d665bccc3c19a4fe20241d7527d550a24aea:DominoPrimerParcial/src/main/java/ec/edu/espol/proyectopoo/Juego.java
         }
         
         return false;
@@ -204,54 +199,6 @@ public class Juego {
         
         System.out.println("Fichas actuales que puede jugar: ");
         j.imprimirMano();
-<<<<<<< HEAD:src/main/java/ec/edu/espol/proyectopoo/Juego.java
-        for(int i=0;i<j.tamanioMano();i++){
-            do{
-                System.out.print("Ingrese la posición de la ficha que desea usar:");
-                int pos=sc.nextInt();
-                while(!(pos>0 ||pos<j.tamanioMano())||(this.agregarFichaLinea(j.getFicha(pos-1), j)==false)){
-                    System.out.println("Ingrese otra posición:");
-                    pos=sc.nextInt(); 
-                }
-                return "Agregado";    
-            }while((j.getFicha(i)instanceof FichaComodin)||j.getFicha(i).getLado1()==this.obtenerValorFinLinea()||j.getFicha(i).getLado2()==this.obtenerValorInicioLinea());
-        }
-        return "Perdiste";
-    }                     
-    public boolean turnoJugador(int p)
-    {
-        Scanner sc = new Scanner(System.in);
-        sc.useLocale(Locale.US);
-        sc.useDelimiter("\n");
-        
-        Jugador j = this.jugadores.get(p);
-        
-        System.out.println("Fichas actuales que puede jugar: ");
-        j.imprimirMano();
-        for(int i=0;i<j.tamanioMano();i++){
-            do{
-                
-                System.out.println("Ingrese la posición de la ficha que desea usar:");
-                int pos=sc.nextInt();
-                while(!(pos>0 ||pos<j.tamanioMano())||(this.agregarFichaLinea(j.getFicha(pos-1), j)==false)){
-                    System.out.println("Ingrese otra posición:");
-                    pos=sc.nextInt(); 
-                }
-                return "Agregado";    
-            }while((j.getFicha(i)instanceof FichaComodin)||j.getFicha(i).getLado1()==this.obtenerValorFinLinea()||j.getFicha(i).getLado2()==this.obtenerValorInicioLinea());
-        
-        System.out.println("Seleccione el indice de la ficha que desea jugar");
-        int eleccion = sc.nextInt();
-        
-        while(eleccion < 0 || eleccion > j.tamanioMano())
-        {
-            System.out.println("El indice no es valido, ingrese otro indice: ");
-            eleccion = sc.nextInt();
-        }
-        
-        return this.agregarFichaLinea(j.getFicha(eleccion), j);
-      
-=======
         
         System.out.println("Seleccione el indice de la ficha que desea jugar");
         int eleccion = sc.nextInt();
@@ -264,7 +211,6 @@ public class Juego {
         
         return this.agregarFichaLinea(j.getFicha(eleccion), j);
         
->>>>>>> 1453d665bccc3c19a4fe20241d7527d550a24aea:DominoPrimerParcial/src/main/java/ec/edu/espol/proyectopoo/Juego.java
     }
     
     public boolean validarOpciones(Jugador j)

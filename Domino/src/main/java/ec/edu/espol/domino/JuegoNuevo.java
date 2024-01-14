@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.domino;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -13,21 +14,25 @@ import java.util.Scanner;
  * @author TOSHIBA
  */
 public class JuegoNuevo {
-    public void NuevoJuego(){
-        Scanner sc = new Scanner(System.in);
-        sc.useLocale(Locale.US);
-        sc.useDelimiter("\n");
+    
+    public static void NuevoJuego(Juego game){
 
-        Juego game = new Juego();
         
+        
+        //0
+        game.agregarJugador("Maquina");
+        //System.out.println("Ingrese el nombre del jugador:");
+        //1
+        game.agregarJugador("Jugador");
 
+        
+    }
+    
+    public static void logicaJuego(Juego game)
+    {
         Random r = new Random();
         int turno = r.nextInt(1);
-        game.agregarJugador("Maquina");
-        System.out.println("Ingrese el nombre del jugador:");
-        game.agregarJugador(sc.next());
-
-
+        
         boolean condicionVictoria = game.getJugadores().get(0).tamanioMano() > 0 && game.getJugadores().get(1).tamanioMano() > 0;
 
         while(condicionVictoria==true)
@@ -38,13 +43,13 @@ public class JuegoNuevo {
 
                 if(game.turnoMaquina() == true)
                 {
-                    System.out.println("Linea actual: ");
+                    //System.out.println("Linea actual: ");
                     game.mostrarLinea();
 
                     if(game.validarOpciones(game.getJugadores().get(1)) == false)
                     {
                         condicionVictoria = false;
-                        System.out.println("Perdiste");
+                        //System.out.println("Perdiste");
                     }
 
 
@@ -53,7 +58,7 @@ public class JuegoNuevo {
                         boolean condicion1 = game.validarOpciones(game.getJugadores().get(1));
                         while(condicion1 == true)
                         {
-                            System.out.println("La ficha no es válida, pruebe otra vez");
+                            //System.out.println("La ficha no es válida, pruebe otra vez");
                             game.mostrarLinea();
                             condicion1 = !game.turnoJugador(1);
                             game.mostrarLinea();
@@ -63,7 +68,7 @@ public class JuegoNuevo {
 
                 else
                 {
-                    System.out.println("Ganaste");
+                    //System.out.println("Ganaste");
                     condicionVictoria = false;
                 }
 
@@ -79,14 +84,14 @@ public class JuegoNuevo {
                     if(game.validarOpciones(game.getJugadores().get(1)) == false)
                     {
                         condicionVictoria = false;
-                        System.out.println("Perdiste");
+                        //System.out.println("Perdiste");
                     }
                     else
                     {
                         boolean condicion1 = game.validarOpciones(game.getJugadores().get(1));
                         while(condicion1 == true)
                         {
-                            System.out.println("La ficha no es válida, pruebe otra vez");
+                            //System.out.println("La ficha no es válida, pruebe otra vez");
                             game.mostrarLinea();
                             condicion1 = !game.turnoJugador(1);
                             game.mostrarLinea();
@@ -95,7 +100,7 @@ public class JuegoNuevo {
                         if(game.turnoMaquina() == false)
                         {
                             condicionVictoria = false;
-                            System.out.println("Ganaste");
+                            //System.out.println("Ganaste");
                         }
 
                         else
@@ -107,17 +112,18 @@ public class JuegoNuevo {
 
                 else
                 {
-                    System.out.println("Ganaste");
+                    //System.out.println("Ganaste");
                     condicionVictoria = false;
                 } 
             }
         }
+        
         //While se hace false
 
-        if(game.getJugadores().get(0).tamanioMano() == 0)
+        /*if(game.getJugadores().get(0).tamanioMano() == 0)
             System.out.println("El ganador es: " + game.getJugadores().get(0).getNombre());
         else if(game.getJugadores().get(1).tamanioMano() == 0)
-            System.out.println("El ganador es: " + game.getJugadores().get(1).getNombre());
+            System.out.println("El ganador es: " + game.getJugadores().get(1).getNombre());*/
 
     }
 }

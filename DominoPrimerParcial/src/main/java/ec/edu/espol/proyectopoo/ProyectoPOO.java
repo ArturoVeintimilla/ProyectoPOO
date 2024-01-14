@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @author Arturo
  */
 public class ProyectoPOO {
-   
+
     public static void main(String[] args) {
         
         Scanner sc = new Scanner(System.in);
@@ -176,5 +176,6 @@ public class ProyectoPOO {
                 System.out.println("El ganador es: " + game.getJugadores().get(1).getNombre());
                 
         }
+
     }
 }
