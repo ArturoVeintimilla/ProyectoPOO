@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.domino.MesajuegoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.domino.MesajuegoController">
    <center>
       <ScrollPane fx:id="idScrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
@@ -20,9 +20,9 @@
       <HBox fx:id="manojugador" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </bottom>
    <left>
-      <Button fx:id="bttInicio" mnemonicParsing="false" text="Inicio" BorderPane.alignment="CENTER" />
+      <Button fx:id="bttInicio" mnemonicParsing="false" onMouseClicked="#ficha_al_inicio" text="Inicio" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <Button fx:id="bttFin" mnemonicParsing="false" text="Fin" BorderPane.alignment="CENTER" />
+      <Button fx:id="bttFin" mnemonicParsing="false" onMouseClicked="#ficha_al_final" text="Fin" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>
