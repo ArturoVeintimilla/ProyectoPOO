@@ -63,7 +63,7 @@ public class MesajuegoController implements Initializable {
         actualizar_fichas(listaManoJugador, manojugador);
         actualizar_fichas(listaManoMaquina, manomaquina);
         
-        //jugarPartida(game);
+        jugarPartida(game);
             
     } 
     
@@ -119,34 +119,34 @@ public class MesajuegoController implements Initializable {
                 // Obtenemos el contenedor de la ficha y su ID a referenciar en el ArrayList
                 HBox ficha = (HBox) t.getSource();
                 int posicion = Integer.parseInt(ficha.getId());
-                
+
                 
                 //Si no se elige la comodín se maneja la lógica normal
                 if(posicion != caja.getChildren().size()-1)
                 {
-                    //Si podemos agregar una ficha se agrega
-                    if(game.agregarFichaLinea(j.getMano().get(posicion), j) == true)
-                    {
-                        idScrollPane.setContent(mesafichas);
-                        mesafichas.getChildren().clear();
-                        actualizar_fichas(game.getLineaJuego(), mesafichas);
-                        manojugador.getChildren().clear();
-                        actualizar_fichas(j.getMano(), manojugador);
-                        crearEventoFicha(caja, game);          
+                        //Si podemos agregar una ficha se agrega
+                        if(game.agregarFichaLinea(j.getMano().get(posicion), j) == true)
+                        {
+                            idScrollPane.setContent(mesafichas);
+                            mesafichas.getChildren().clear();
+                            actualizar_fichas(game.getLineaJuego(), mesafichas);
+                            manojugador.getChildren().clear();
+                            actualizar_fichas(j.getMano(), manojugador);
+                            crearEventoFicha(caja, game);          
+                        }
+
+                        //Si no, entonces muestra el mensaje de alerta
+                        else
+                        {
+                            Alert a = new Alert(Alert.AlertType.INFORMATION, "No se puede jugar esa ficha");
+                            a.show();
+                        }
                     }
-                    
-                    //Si no, entonces muestra el mensaje de alerta
-                    else
-                    {
-                        Alert a = new Alert(Alert.AlertType.INFORMATION, "No se puede jugar esa ficha");
-                        a.show();
-                    }
-                }
                 
                 //Si se elige la comodín se debe llamar a la interfaz respectiva
-                else
+                 else
                 {
-                    
+
                 }
             });
             
