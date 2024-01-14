@@ -37,11 +37,23 @@ public class Jugador {
     }
     
     public void imprimirMano(){
+
+        for(Ficha f:mano){
+            int i=1;
+            System.out.print(f.toString());
+            if (i<mano.size()){
+                i++;
+                System.out.print(" - ");
+            }
+            else
+                System.out.println("\n");
+        }
        StringBuilder s1 = new StringBuilder();
         for(int i = 0;i < mano.size();i++){
             s1.append(mano.get(i).toString());
             if(i < mano.size() - 1)
                 s1.append(" - ");
+
         }
         System.out.println(s1);
     }
