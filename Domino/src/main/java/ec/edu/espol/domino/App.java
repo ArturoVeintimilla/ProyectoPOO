@@ -17,30 +17,36 @@ import java.util.Scanner;
  */
 public class App extends Application {
 
-    private static Scene scene;
+    public static Scene scene;
+    public static Juego game;
 
+    public void setGame(Juego game) {
+        this.game = game;
+    }
     @Override
     public void start(Stage stage) throws IOException {
-
-        scene = new Scene(loadFXML("mesajuego"), 640, 480);
+        scene = new Scene(loadFXML("mesajuego").load(), 640, 480);
         stage.setScene(scene);
         stage.show();
         
-              
+        
     }
 
     static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        scene.setRoot(loadFXML(fxml).load());
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    public static FXMLLoader loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        return fxmlLoader;
+    }
+    
+    public static FXMLLoader cargarFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = FXMLLoader.load(App.class.getResource(fxml + ".fxml"));
+        return fxmlLoader;
     }
 
     public static void main(String[] args) {
-           
         launch();
-      
-    }  
+    }
 }

@@ -7,6 +7,7 @@ package ec.edu.espol.domino;
 import ec.edu.espol.domino.Ficha;
 import ec.edu.espol.domino.FichaComodin;
 import ec.edu.espol.domino.Utilitaria;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,9 +16,11 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -25,6 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -53,7 +57,6 @@ public class MesajuegoController implements Initializable {
         
         //Ventana de inicio
         Juego game = new Juego();
-        JuegoNuevo.NuevoJuego(game);
         
         
         //0
@@ -148,7 +151,7 @@ public class MesajuegoController implements Initializable {
                 if(game.validarOpciones(j) == true && condicionVictoria == true)
                 {
                     //Si no se elige la comodín se maneja la lógica normal
-                    if(posicion != caja.getChildren().size()-1)
+                    if(posicion != caja.getChildren().size()-1 || !(j.getMano().get(j.getMano().size()-1) instanceof FichaComodin))
                     {
                         //Si podemos agregar una ficha se agrega
                         if(game.agregarFichaLinea(j.getMano().get(posicion), j) == true)
@@ -189,7 +192,31 @@ public class MesajuegoController implements Initializable {
                     else
                     {
                         //Logica cambio interfaz
-                        
+                        try{
+                            Jugador j1 = game.getJugadores().get(1);
+                            FXMLLoader fxml= App.loadFXML("comodin");
+                            j1.removerFicha(j1.getFicha(j1.getMano().size()));
+                            Scene sc= new Scene(fxml.load(),600,400);
+                            ComodinController cm=fxml.getController();
+                            cm.setLados(game.obtenerValorInicioLinea(), game.obtenerValorFinLinea());
+                            cm.setJuego(game);
+                            
+                            Stage st= new Stage();
+                            st.setScene(sc);
+                            st.show();
+                            
+                            idScrollPane.setContent(mesafichas);
+                            mesafichas.getChildren().clear();
+                            actualizar_fichas(game.getLineaJuego(), mesafichas);
+                            manojugador.getChildren().clear();
+                            actualizar_fichas(j.getMano(), manojugador);
+                            crearEventoFicha(caja, game);
+                            
+                        }
+                        catch(IOException e){
+                            Alert a= new Alert(Alert.AlertType.ERROR,"No se pudo abrir el fxml");
+                            a.show();
+                        }
                         
                         //Maquina puede jugar
                         if(game.turnoMaquina() == true)
@@ -338,5 +365,28 @@ public class MesajuegoController implements Initializable {
             Alert a = new Alert(Alert.AlertType.INFORMATION, "Felicitaciones, ganaste!!");
             a.show();
         }
+    }
+    
+    public void setImagenComodinInicio(String L_1,String L_2,Juego game){
+        ImageView comodin_L1=new ImageView(L_1);
+        ImageView comodin_L2= new ImageView(L_2);
+        HBox hb= new HBox();
+        comodin_L1.setFitHeight(80);
+        comodin_L1.setFitWidth(80);
+        comodin_L2.setFitHeight(80);
+        comodin_L2.setFitWidth(80);
+        hb.getChildren().addAll(comodin_L1,comodin_L2);
+        mesafichas.getChildren().add(0, hb);
+    }
+    public void setImagenComodinFinal(String L_1,String L_2,Juego game){
+        ImageView comodin_L1=new ImageView(L_1);
+        ImageView comodin_L2= new ImageView(L_2);
+        HBox hb= new HBox();
+        comodin_L1.setFitHeight(80);
+        comodin_L1.setFitWidth(80);
+        comodin_L2.setFitHeight(80);
+        comodin_L2.setFitWidth(80);
+        hb.getChildren().addAll(comodin_L1,comodin_L2);
+        mesafichas.getChildren().add( hb);
     }
 }
