@@ -159,6 +159,7 @@ public class MesajuegoController implements Initializable {
                         ComodinController cm=fxml.getController();
                         cm.setLados(game.obtenerValorInicioLinea(), game.obtenerValorFinLinea());
                         cm.setJuego(game);
+                        if(game.obtenerValorInicioLinea()==)
                         idScrollPane.setContent(mesafichas);
                         Stage st= new Stage();
                         st.setScene(sc);
@@ -176,28 +177,7 @@ public class MesajuegoController implements Initializable {
     public void setH(HBox h){
         this.h=h;
     }
-    public void setImagenComodinInicio(String L_1,String L_2,Juego game){
-        ImageView comodin_L1=new ImageView(L_1);
-        ImageView comodin_L2= new ImageView(L_2);
-        HBox hb= new HBox();
-        comodin_L1.setFitHeight(80);
-        comodin_L1.setFitWidth(80);
-        comodin_L2.setFitHeight(80);
-        comodin_L2.setFitWidth(80);
-        hb.getChildren().addAll(comodin_L1,comodin_L2);
-        mesafichas.getChildren().add(0, hb);
-    }
-    public void setImagenComodinFinal(String L_1,String L_2,Juego game){
-        ImageView comodin_L1=new ImageView(L_1);
-        ImageView comodin_L2= new ImageView(L_2);
-        HBox hb= new HBox();
-        comodin_L1.setFitHeight(80);
-        comodin_L1.setFitWidth(80);
-        comodin_L2.setFitHeight(80);
-        comodin_L2.setFitWidth(80);
-        hb.getChildren().addAll(comodin_L1,comodin_L2);
-        mesafichas.getChildren().add( hb);
-    }
+ 
     public void jugadaMaquina(HBox caja, Juego game)
     {
         //Limpiamos la mano de la maquina y obtenemos su mano

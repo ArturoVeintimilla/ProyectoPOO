@@ -31,8 +31,10 @@ public class ComodinController implements Initializable {
     private TextField lado1;
     @FXML
     private TextField lado2;
-    private int mesa_lado_fin;
-    private int mesa_lado_inicio;
+    public int mesa_lado_fin;
+    public int mesa_lado_inicio;
+    public int L_1;
+    public int L_2;
     private Juego game;
     private HBox h=null;
     /**
@@ -55,7 +57,7 @@ public class ComodinController implements Initializable {
             if(mesa_lado_inicio==L_2){
                 if(L_1==4&&L_2==4){
                     //h= setImagenes("dado4.jpg","dado4.jpg");
-                    m.setImagenComodinInicio("dado4.jpg", "dado4.jpg", game);
+                    //m.setImagenComodinInicio("dado4.jpg", "dado4.jpg", game);
                 }
                 else if(L_2==4){
                     //h= setImagenes("dado"+texto_L1+".png","dado4.jpg");
@@ -110,6 +112,17 @@ public class ComodinController implements Initializable {
         this.game=game;
     }
     public HBox setImagenes(String L_1,String L_2){
+        ImageView comodin_L1=new ImageView(L_1);
+        ImageView comodin_L2= new ImageView(L_2);
+        HBox hb= new HBox();
+        comodin_L1.setFitHeight(80);
+        comodin_L1.setFitWidth(80);
+        comodin_L2.setFitHeight(80);
+        comodin_L2.setFitWidth(80);
+        hb.getChildren().addAll(comodin_L1,comodin_L2);
+        return hb;
+    }
+        public HBox setImagenComodin(String L_1,String L_2,Juego game){
         ImageView comodin_L1=new ImageView(L_1);
         ImageView comodin_L2= new ImageView(L_2);
         HBox hb= new HBox();
