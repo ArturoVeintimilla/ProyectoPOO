@@ -61,10 +61,9 @@ public class MesajuegoController implements Initializable {
         
         actualizar_fichas(listaManoJugador, manojugador);
         actualizar_fichas(listaManoMaquina, manomaquina);
-    } 
-    public void main(String[] args) {
         jugarPartida(game);
-    }
+    } 
+
 
 
     public void actualizar_fichas(ArrayList<Ficha> game,HBox lugar){
@@ -184,7 +183,7 @@ public class MesajuegoController implements Initializable {
                 {
                     //Actualizamos la mano de la maquina
                     jugadaMaquina(game);
-                    condicionVictoria=false;
+                    
                     //Jugador no puede jugar
                     if(game.validarOpciones(game.getJugadores().get(1)) == false)
                     {
