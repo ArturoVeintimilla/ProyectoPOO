@@ -11,6 +11,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -22,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -49,7 +53,8 @@ public class MesajuegoController implements Initializable {
         
         //Ventana de inicio
         Juego game = new Juego();
-        JuegoNuevo.NuevoJuego(game);   
+        JuegoNuevo.NuevoJuego(game);
+        
         
         //0
         game.agregarJugador("Maquina");
@@ -64,10 +69,28 @@ public class MesajuegoController implements Initializable {
         actualizar_fichas(listaManoMaquina, manomaquina);
         
         //jugarPartida(game);
-            
+        
+        Random r = new Random();
+        int turno = r.nextInt(2);
+        
+        if (turno == 0)
+        {
+            if(game.turnoMaquina() == true)
+                {
+                    //Actualizamos la mano de la maquina
+                    jugadaMaquina(manomaquina, game);
+
+                    crearEventoFicha(manojugador, game);
+                }
+        }
+        
+        else
+        {
+            crearEventoFicha(manojugador, game);
+        }
     } 
     
-    
+        
     
     private void actualizar_fichas(ArrayList<Ficha> game,HBox lugar){
         ImageView im_L1;
@@ -115,38 +138,95 @@ public class MesajuegoController implements Initializable {
         
         //Recorremos la mano del jugador para agregar eventos de click a las fichas
         caja.getChildren().forEach((Node node) -> {
+            
             node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent t) -> { 
                 // Obtenemos el contenedor de la ficha y su ID a referenciar en el ArrayList
                 HBox ficha = (HBox) t.getSource();
                 int posicion = Integer.parseInt(ficha.getId());
-                
-                
-                //Si no se elige la comodín se maneja la lógica normal
-                if(posicion != caja.getChildren().size()-1)
+                boolean condicionVictoria = game.getJugadores().get(0).tamanioMano() > 0 && game.getJugadores().get(1).tamanioMano() > 0;
+
+                if(game.validarOpciones(j) == true && condicionVictoria == true)
                 {
-                    //Si podemos agregar una ficha se agrega
-                    if(game.agregarFichaLinea(j.getMano().get(posicion), j) == true)
+                    //Si no se elige la comodín se maneja la lógica normal
+                    if(posicion != caja.getChildren().size()-1)
                     {
-                        idScrollPane.setContent(mesafichas);
-                        mesafichas.getChildren().clear();
-                        actualizar_fichas(game.getLineaJuego(), mesafichas);
-                        manojugador.getChildren().clear();
-                        actualizar_fichas(j.getMano(), manojugador);
-                        crearEventoFicha(caja, game);          
+                        //Si podemos agregar una ficha se agrega
+                        if(game.agregarFichaLinea(j.getMano().get(posicion), j) == true)
+                        {
+                            idScrollPane.setContent(mesafichas);
+                            mesafichas.getChildren().clear();
+                            actualizar_fichas(game.getLineaJuego(), mesafichas);
+                            manojugador.getChildren().clear();
+                            actualizar_fichas(j.getMano(), manojugador);
+                            crearEventoFicha(caja, game);
+                            
+                            //Maquina puede jugar
+                            if(game.turnoMaquina() == true)
+                            {
+                                //Actualizamos la mano de la maquina
+                                jugadaMaquina(manomaquina, game);
+
+                            }
+
+                            //Maquina no pudo jugar
+                            else
+                            {
+                                condicionVictoria = false;
+                                Alert a = new Alert(Alert.AlertType.INFORMATION, "Felicitaciones, ganaste!!");
+                                a.show();  
+                            }
+                        }
+
+                        //Si no, entonces muestra el mensaje de alerta
+                        else
+                        {
+                            Alert a = new Alert(Alert.AlertType.INFORMATION, "No se puede jugar esa ficha");
+                            a.show();
+                        }
                     }
-                    
-                    //Si no, entonces muestra el mensaje de alerta
+
+                    //Si se elige la comodín se debe llamar a la interfaz respectiva
                     else
                     {
-                        Alert a = new Alert(Alert.AlertType.INFORMATION, "No se puede jugar esa ficha");
-                        a.show();
+                        //Logica cambio interfaz
+                        
+                        
+                        //Maquina puede jugar
+                        if(game.turnoMaquina() == true)
+                        {
+                            //Actualizamos la mano de la maquina
+                            jugadaMaquina(manomaquina, game);
+
+                        }
+
+                        //Maquina no pudo jugar
+                        else
+                        {
+                            condicionVictoria = false;
+                            Alert a = new Alert(Alert.AlertType.INFORMATION, "Felicitaciones, ganaste!!");
+                            a.show();  
+                        }
                     }
                 }
                 
-                //Si se elige la comodín se debe llamar a la interfaz respectiva
-                else
+                else if(game.validarOpciones(j) == false)
                 {
-                    
+                    Alert a = new Alert(Alert.AlertType.INFORMATION, "Perdiste, te falta, te falta...");
+                    a.show();
+                }
+                
+                else if(condicionVictoria == false)
+                {
+                    if(game.getJugadores().get(0).tamanioMano() == 0)
+                    {
+                        Alert a = new Alert(Alert.AlertType.INFORMATION, "Perdiste, te falta, te falta...");
+                        a.show();
+                    }    
+                    else if(game.getJugadores().get(1).tamanioMano() == 0)
+                    {
+                        Alert a = new Alert(Alert.AlertType.INFORMATION, "Felicitaciones, ganaste!!");
+                        a.show();
+                    }
                 }
             });
             
@@ -168,6 +248,7 @@ public class MesajuegoController implements Initializable {
         actualizar_fichas(game.getLineaJuego(), mesafichas);
     }
     
+
     public void jugarPartida(Juego game)
     {
         Random r = new Random();

@@ -8,7 +8,7 @@
    <center>
       <ScrollPane fx:id="idScrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <HBox fx:id="mesafichas" prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="mesafichas" prefHeight="100.0" prefWidth="599.0" />
          </content>
       </ScrollPane>
    </center>

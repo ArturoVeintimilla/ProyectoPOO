@@ -221,7 +221,10 @@ public class Juego {
         {
             for(Ficha f:j.getMano())
             {
-                    if(f.getLado2() == obtenerValorInicioLinea())
+                    if(lineaJuego.isEmpty())
+                        return true;
+                    
+                    else if(f.getLado2() == obtenerValorInicioLinea())
                         return true;
 
                     else if(f.getLado1() == obtenerValorFinLinea())
