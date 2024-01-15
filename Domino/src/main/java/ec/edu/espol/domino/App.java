@@ -18,12 +18,18 @@ import java.util.Scanner;
 public class App extends Application {
 
     private static Scene scene;
+    public static Juego game;
 
+    public void setGame(Juego game) {
+        this.game = game;
+    }
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("mesajuego").load(), 640, 480);
         stage.setScene(scene);
         stage.show();
+        
+        
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -36,8 +42,13 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        
         launch();
-
+        try {
+            FXMLLoader fxml= App.loadFXML("mesajuego");
+            MesajuegoController m= fxml.getController();
+            m.jugarPartida(game);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

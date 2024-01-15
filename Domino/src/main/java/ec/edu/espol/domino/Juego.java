@@ -22,6 +22,10 @@ public class Juego {
         lineaJuego = new ArrayList<>();
         jugadores = new ArrayList<>();
     }
+
+    public ArrayList<Ficha> getLineaJuego() {
+        return lineaJuego;
+    }
     
     public void agregarJugador(String nombre)
     {
@@ -144,11 +148,11 @@ public class Juego {
 
     public boolean turnoMaquina()
     {
-        System.out.println("Mano de la maquina: ");
+        //System.out.println("Mano de la maquina: ");
         
         Jugador maquina = this.jugadores.get(0);
         
-        maquina.imprimirMano();
+        //maquina.imprimirMano();
         
         for(Ficha f:maquina.getMano())
         {
@@ -162,7 +166,7 @@ public class Juego {
             else if(f instanceof FichaComodin)
             {
                 Random r = new Random();
-                int dado = r.nextInt(1);
+                int dado = r.nextInt(2);
                 int nrand = (int) ((Math.random() * 6) + 1);
                 
                 if(dado == 0)

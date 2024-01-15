@@ -117,6 +117,7 @@ public class JuegoNuevo {
                 } 
             }
         }
+        
         //While se hace false
 
         /*if(game.getJugadores().get(0).tamanioMano() == 0)

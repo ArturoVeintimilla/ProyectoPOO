@@ -177,6 +177,12 @@ public class ProyectoPOO {
                 
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+    }
+}
+>>>>>>> main
 =======
 
     }
