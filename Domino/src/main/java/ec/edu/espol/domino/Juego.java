@@ -173,6 +173,7 @@ public class Juego {
                 {
                     lineaJuego.add(0,f);
                     ((FichaComodin) f).setLado1(nrand);
+                    ((FichaComodin)f).setLado2(lineaJuego.get(0).getLado1());
                     maquina.removerFicha(f);
                     
                 }
@@ -180,6 +181,7 @@ public class Juego {
                 {
                     lineaJuego.add(lineaJuego.size(),f);
                     ((FichaComodin) f).setLado2(nrand);
+                    ((FichaComodin)f).setLado1(lineaJuego.get(lineaJuego.size()-1).getLado2());
                     maquina.removerFicha(f);
                 }
                 

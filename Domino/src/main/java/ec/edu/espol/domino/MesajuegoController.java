@@ -40,6 +40,7 @@ public class MesajuegoController implements Initializable {
     @FXML
     private ScrollPane idScrollPane;
 
+    Juego game= new Juego();
     /**
      * Initializes the controller class.
      */
@@ -48,9 +49,7 @@ public class MesajuegoController implements Initializable {
         // TODO
         
         //Ventana de inicio
-        Juego game = new Juego();
-        JuegoNuevo.NuevoJuego(game);   
-        
+        JuegoNuevo.NuevoJuego(game);
         //0
         game.agregarJugador("Maquina");
         //1
@@ -62,14 +61,13 @@ public class MesajuegoController implements Initializable {
         
         actualizar_fichas(listaManoJugador, manojugador);
         actualizar_fichas(listaManoMaquina, manomaquina);
-        
-        jugarPartida(game);
-            
     } 
-    
-    
-    
-    private void actualizar_fichas(ArrayList<Ficha> game,HBox lugar){
+    public void main(String[] args) {
+        jugarPartida(game);
+    }
+
+
+    public void actualizar_fichas(ArrayList<Ficha> game,HBox lugar){
         ImageView im_L1;
         ImageView im_L2;
         int counter = 0;
@@ -107,23 +105,23 @@ public class MesajuegoController implements Initializable {
             
             
         }
-    }    
-
-    private void crearEventoFicha(HBox caja, Juego game)
+    }
+    
+    public void crearEventoFicha(Juego game)
     {   
-        Jugador j = game.getJugadores().get(1);
+            Jugador j = game.getJugadores().get(1);
         
-        //Recorremos la mano del jugador para agregar eventos de click a las fichas
-        caja.getChildren().forEach((Node node) -> {
-            node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent t) -> { 
-                // Obtenemos el contenedor de la ficha y su ID a referenciar en el ArrayList
-                HBox ficha = (HBox) t.getSource();
-                int posicion = Integer.parseInt(ficha.getId());
+            //Recorremos la mano del jugador para agregar eventos de click a las fichas
+            manojugador.getChildren().forEach((Node node) -> {
+                node.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent t) -> { 
+                    // Obtenemos el contenedor de la ficha y su ID a referenciar en el ArrayList
+                    HBox ficha = (HBox) t.getSource();
+                    int posicion = Integer.parseInt(ficha.getId());
 
-                
-                //Si no se elige la comodín se maneja la lógica normal
-                if(posicion != caja.getChildren().size()-1)
-                {
+
+                    //Si no se elige la comodín se maneja la lógica normal
+                    if(posicion != manojugador.getChildren().size()-1)
+                    {
                         //Si podemos agregar una ficha se agrega
                         if(game.agregarFichaLinea(j.getMano().get(posicion), j) == true)
                         {
@@ -132,7 +130,7 @@ public class MesajuegoController implements Initializable {
                             actualizar_fichas(game.getLineaJuego(), mesafichas);
                             manojugador.getChildren().clear();
                             actualizar_fichas(j.getMano(), manojugador);
-                            crearEventoFicha(caja, game);          
+                            crearEventoFicha(game);          
                         }
 
                         //Si no, entonces muestra el mensaje de alerta
@@ -142,31 +140,31 @@ public class MesajuegoController implements Initializable {
                             a.show();
                         }
                     }
-                
-                //Si se elige la comodín se debe llamar a la interfaz respectiva
-                 else
-                {
 
-                }
-            });
-            
-        });    
-    }
+                    //Si se elige la comodín se debe llamar a la interfaz respectiva
+                     else
+                    {
+                    }
+                });
+            });   
+    }    
     
-    public void jugadaMaquina(HBox caja, Juego game)
+    public void jugadaMaquina(Juego game)
     {
-        //Limpiamos la mano de la maquina y obtenemos su mano
-        ArrayList<Ficha> listaManoMaquina = game.getJugadores().get(0).getMano();
-        caja.getChildren().clear();
+
+            //Limpiamos la mano de la maquina y obtenemos su mano
+            ArrayList<Ficha> listaManoMaquina = game.getJugadores().get(0).getMano();
+            manomaquina.getChildren().clear();
+
+            //Mostramos mano de la maquina
+            actualizar_fichas(listaManoMaquina, manomaquina);
+
+            //Actualizamos la linea de juego
+            idScrollPane.setContent(mesafichas);
+            mesafichas.getChildren().clear();
+            actualizar_fichas(game.getLineaJuego(), mesafichas);
         
-        //Mostramos mano de la maquina
-        actualizar_fichas(listaManoMaquina, manomaquina);
-        
-        //Actualizamos la linea de juego
-        idScrollPane.setContent(mesafichas);
-        mesafichas.getChildren().clear();
-        actualizar_fichas(game.getLineaJuego(), mesafichas);
-    }
+    }    
     
     public void jugarPartida(Juego game)
     {
@@ -175,18 +173,18 @@ public class MesajuegoController implements Initializable {
         
         //Condicion: Alguno de los jugadores se queda sin cartas
         boolean condicionVictoria = game.getJugadores().get(0).tamanioMano() > 0 && game.getJugadores().get(1).tamanioMano() > 0;
-
         while(condicionVictoria==true)
         {
             //Empieza la maquina
             if(turno == 0)
             {
+                turno++;
                 //Maquina juega
                 if(game.turnoMaquina() == true)
                 {
                     //Actualizamos la mano de la maquina
-                    jugadaMaquina(manomaquina, game);
-
+                    jugadaMaquina(game);
+                    condicionVictoria=false;
                     //Jugador no puede jugar
                     if(game.validarOpciones(game.getJugadores().get(1)) == false)
                     {
@@ -198,7 +196,7 @@ public class MesajuegoController implements Initializable {
                     //Jugador juega
                     else 
                     {
-                        crearEventoFicha(manojugador, game);
+                        crearEventoFicha(game);
                     }
                 }
                 
@@ -218,8 +216,8 @@ public class MesajuegoController implements Initializable {
             else
             {   
                 //Jugador juega
-                crearEventoFicha(manojugador, game);
-                
+                crearEventoFicha(game);
+                turno--;
                 //Si no tiene opciones este pierde
                 if(game.validarOpciones(game.getJugadores().get(1)) == false)
                 {
@@ -240,7 +238,7 @@ public class MesajuegoController implements Initializable {
                 //Maquina juega
                 else
                 {
-                    jugadaMaquina(manomaquina, game);
+                    jugadaMaquina(game);
                 }
             }
         }

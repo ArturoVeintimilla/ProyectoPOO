@@ -16,7 +16,7 @@ import java.util.Scanner;
  * JavaFX App
  */
 public class App extends Application {
-    
+    static MesajuegoController mesa;
     //prueba
 
     private static Scene scene;
@@ -41,7 +41,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        
+      
         launch();
         
     }
