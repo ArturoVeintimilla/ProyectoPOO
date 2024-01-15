@@ -43,12 +43,5 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
-        try {
-            FXMLLoader fxml= App.loadFXML("mesajuego");
-            MesajuegoController m= fxml.getController();
-            m.jugarPartida(game);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }
 }

@@ -23,7 +23,7 @@
    <bottom>
       <HBox fx:id="manojugador" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="ficha_individual" onMouseClicked="#ficha_elegida" prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="ficha_individual" prefHeight="200.0" prefWidth="100.0" />
          </children>
       </HBox>
    </bottom>

@@ -69,7 +69,7 @@ public class MesajuegoController implements Initializable {
         actualizar_fichas(listaManoJugador, manojugador);
         actualizar_fichas(listaManoMaquina, manomaquina);
         
-        App.game=game;
+        jugarPartida(game);
             
     } 
     
@@ -159,6 +159,7 @@ public class MesajuegoController implements Initializable {
                         ComodinController cm=fxml.getController();
                         cm.setLados(game.obtenerValorInicioLinea(), game.obtenerValorFinLinea());
                         cm.setJuego(game);
+                        idScrollPane.setContent(mesafichas);
                         Stage st= new Stage();
                         st.setScene(sc);
                         st.show();
@@ -190,7 +191,6 @@ public class MesajuegoController implements Initializable {
         ImageView comodin_L1=new ImageView(L_1);
         ImageView comodin_L2= new ImageView(L_2);
         HBox hb= new HBox();
-        game.getJugadores().get(1).removerFicha(game.getJugadores().get(1).getFicha(game.getJugadores().get(1).getMano().size()-1));
         comodin_L1.setFitHeight(80);
         comodin_L1.setFitWidth(80);
         comodin_L2.setFitHeight(80);

@@ -54,42 +54,42 @@ public class ComodinController implements Initializable {
             MesajuegoController m= fxml.getController();
             if(mesa_lado_inicio==L_2){
                 if(L_1==4&&L_2==4){
-                    h= setImagenes("dado4.jpg","dado4.jpg");
+                    //h= setImagenes("dado4.jpg","dado4.jpg");
                     m.setImagenComodinInicio("dado4.jpg", "dado4.jpg", game);
                 }
                 else if(L_2==4){
-                    h= setImagenes("dado"+texto_L1+".png","dado4.jpg");
+                    //h= setImagenes("dado"+texto_L1+".png","dado4.jpg");
                     m.setImagenComodinInicio("dado"+texto_L1+".png","dado4.jpg",game);
                 }
                 else if(L_1==4){
-                    h= setImagenes("dado4.jpg","dado"+texto_L2+".png");
+                    //h= setImagenes("dado4.jpg","dado"+texto_L2+".png");
                     m.setImagenComodinInicio("dado4.jpg", "dado"+texto_L2+".png", game);
                 }
                 else{
-                    h=setImagenes("dado"+texto_L1+".png","dado"+texto_L2+".png");
+                    //h=setImagenes("dado"+texto_L1+".png","dado"+texto_L2+".png");
                     m.setImagenComodinInicio("dado"+texto_L1+".png", "dado"+texto_L2+".png", game);
                 }
             }
             else if(mesa_lado_fin==L_1){
                 if(L_1==4&&L_2==4){
-                    h= setImagenes("dado4.jpg","dado4.jpg");
+                    //h= setImagenes("dado4.jpg","dado4.jpg");
                     m.setImagenComodinFinal("dado4.jpg", "dado4.jpg", game);
                 }
                 else if(L_2==4){
-                    h= setImagenes("dado"+texto_L1+".png","dado4.jpg");
+                    //h= setImagenes("dado"+texto_L1+".png","dado4.jpg");
                     m.setImagenComodinFinal("dado"+texto_L1+".png","dado4.jpg",game);
                 }
                 else if(L_1==4){
-                    h= setImagenes("dado4.jpg","dado"+texto_L2+".png");
+                    //h= setImagenes("dado4.jpg","dado"+texto_L2+".png");
                     m.setImagenComodinFinal("dado4.jpg", "dado"+texto_L2+".png", game);
                 }
                 else{
-                    h=setImagenes("dado"+texto_L1+".png","dado"+texto_L2+".png");
+                    //h=setImagenes("dado"+texto_L1+".png","dado"+texto_L2+".png");
                     m.setImagenComodinFinal("dado"+texto_L1+"png", "dado"+texto_L2+".png", game);
                 }
             }
-            Button b= (Button)event.getSource();
-            Stage sp= (Stage) b.getScene().getWindow();
+            regresar_juego= (Button)event.getSource();
+            Stage sp= (Stage) regresar_juego.getScene().getWindow();
             sp.close();
         }
         catch(IOException e){
